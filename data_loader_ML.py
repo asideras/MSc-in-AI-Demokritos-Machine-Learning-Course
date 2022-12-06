@@ -2,16 +2,20 @@ import pandas as pd
 import os
 import librosa
 import warnings
+
 warnings.filterwarnings('ignore')
+
 
 class DataLoaderML:
     def __init__(self):
-        self.heart_audio_path =os.path.join(os.getcwd(), r"the-circor-digiscope-phonocardiogram-dataset-1.0.3\training_data")
-        self.annotations_path =os.path.join(os.getcwd(), r"the-circor-digiscope-phonocardiogram-dataset-1.0.3")
-        self.annotations = pd.read_csv(os.path.join(self.annotations_path, "training_data.csv"))[['Patient ID', 'Murmur']]
+        self.heart_audio_path = os.path.join(os.getcwd(),
+                                             r"the-circor-digiscope-phonocardiogram-dataset-1.0.3\training_data")
+        self.annotations_path = os.path.join(os.getcwd(), r"the-circor-digiscope-phonocardiogram-dataset-1.0.3")
+        self.annotations = pd.read_csv(os.path.join(self.annotations_path, "training_data.csv"))[
+            ['Patient ID', 'Murmur']]
         self.audios = pd.DataFrame(columns=['Patient_ID', 'AV', 'MV', 'PV', 'TV', 'MURMUR'])
 
-    def __create_dataset(self):
+    def __create_dataset(self, fulldataset):
         print(f"Please wait. Out of {self.annotations.shape[0]} patient audios,")
         for index, row in self.annotations.iterrows():
             patient_id = row['Patient ID']
@@ -52,5 +56,9 @@ class DataLoaderML:
             if index % 100 == 0:
                 print(f"{index} patient audios have been loaded")
 
-    def get_audios(self):
-        self.__create_dataset()
+            if not fulldataset and index == 49:
+                break
+
+    def get_audios(self, fullDataset=True):
+        self.__create_dataset(fullDataset)
+
