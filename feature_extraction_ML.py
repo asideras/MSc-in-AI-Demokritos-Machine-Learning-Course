@@ -53,6 +53,14 @@ def max_frequency_extr(audio):
     audio[f'max_mag_freq_PV'] = audio.apply(lambda row: max_frequency(row.PV),axis=1)
     audio[f'max_mag_freq_TV'] = audio.apply(lambda row: max_frequency(row.TV),axis=1)
 
+def total_energy(audio):
+    return np.sum(audio**2)
+
+def total_energy_extr(audio):
+    audio[f'total_energy_AV'] = audio.apply(lambda row: total_energy(row.AV), axis=1)
+    audio[f'total_energy_MV'] = audio.apply(lambda row: total_energy(row.MV), axis=1)
+    audio[f'total_energy_PV'] = audio.apply(lambda row: total_energy(row.PV), axis=1)
+    audio[f'total_energy_TV'] = audio.apply(lambda row: total_energy(row.TV), axis=1)
 
 def extract(data):
     data['mean_zcrAV'] = data['AV'].map(zero_crossing_rate_extr)
