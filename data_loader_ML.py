@@ -53,7 +53,7 @@ class DataLoaderML:
 
             self.audios = self.audios.append(new_row, ignore_index=True)
 
-            if index % 100 == 0:
+            if index % 50 == 0:
                 print(f"{index} patient audios have been loaded")
 
             if not fulldataset and index == 9:
