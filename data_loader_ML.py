@@ -5,7 +5,6 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-
 class DataLoaderML:
     def __init__(self):
         self.heart_audio_path = os.path.join(os.getcwd(),
@@ -56,7 +55,8 @@ class DataLoaderML:
             if index % 50 == 0:
                 print(f"{index} patient audios have been loaded")
 
-            if not fulldataset and index == 9:
+            if index == 9:
+            #if not fulldataset and index == 19:
                break
 
     def get_audios(self, fullDataset=True):

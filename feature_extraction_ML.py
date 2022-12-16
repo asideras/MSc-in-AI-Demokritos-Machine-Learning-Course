@@ -63,6 +63,16 @@ def stat_rms_perc_extr(audio, percentile=50):
                                                      axis=1)
 
 
+def onset_detection(audio):
+    oenv = librosa.onset.onset_strength(y=audio, sr=22050)
+    return len(librosa.onset.onset_detect(onset_envelope=oenv, backtrack=False))
+
+def onset_detection_extr(audio, stat_measure, type):
+    audio[f'{type}_od_AV'] = audio.apply(lambda row: stat_measure(onset_detection(row.AV)), axis=1)
+    audio[f'{type}_od_MV'] = audio.apply(lambda row: stat_measure(onset_detection(row.MV)), axis=1)
+    audio[f'{type}_od_PV'] = audio.apply(lambda row: stat_measure(onset_detection(row.PV)), axis=1)
+    audio[f'{type}_od_TV'] = audio.apply(lambda row: stat_measure(onset_detection(row.TV)), axis=1)
+
 """Find frequency at which the maximum amplitude occurs of a signal"""
 
 
