@@ -1,5 +1,6 @@
 import librosa
 import numpy as np
+from scipy.stats import skew, kurtosis
 
 FRAME_SIZE = 2048
 HOP_LENGTH = 512
@@ -67,12 +68,27 @@ def onset_detection(audio):
     return len(librosa.onset.onset_detect(onset_envelope=oenv, backtrack=False))
 
 
-def onset_detection_extr(audio, stat_measure, type):
-    audio[f'{type}_od_AV'] = audio.apply(lambda row: stat_measure(onset_detection(row.AV)), axis=1)
-    audio[f'{type}_od_MV'] = audio.apply(lambda row: stat_measure(onset_detection(row.MV)), axis=1)
-    audio[f'{type}_od_PV'] = audio.apply(lambda row: stat_measure(onset_detection(row.PV)), axis=1)
-    audio[f'{type}_od_TV'] = audio.apply(lambda row: stat_measure(onset_detection(row.TV)), axis=1)
+def onset_detection_extr(audio):
+    audio['od_AV'] = audio.apply(lambda row: onset_detection(row.AV), axis=1)
+    audio['od_MV'] = audio.apply(lambda row: onset_detection(row.MV), axis=1)
+    audio['od_PV'] = audio.apply(lambda row: onset_detection(row.PV), axis=1)
+    audio['od_TV'] = audio.apply(lambda row: onset_detection(row.TV), axis=1)
 
+def skewness(audio):
+    return skew(audio)
+def skewness_extr(audio):
+    audio['sk_AV'] = audio.apply(lambda row: skewness(row.AV), axis=1)
+    audio['sk_MV'] = audio.apply(lambda row: skewness(row.MV), axis=1)
+    audio['sk_PV'] = audio.apply(lambda row: skewness(row.PV), axis=1)
+    audio['sk_TV'] = audio.apply(lambda row: skewness(row.TV), axis=1)
+
+def kurtosis_(audio):
+    return kurtosis(audio)
+def kurtosis_extr(audio):
+    audio['ku_AV'] = audio.apply(lambda row: kurtosis_(row.AV), axis=1)
+    audio['ku_MV'] = audio.apply(lambda row: kurtosis_(row.MV), axis=1)
+    audio['ku_PV'] = audio.apply(lambda row: kurtosis_(row.PV), axis=1)
+    audio['ku_TV'] = audio.apply(lambda row: kurtosis_(row.TV), axis=1)
 
 def max_frequency(audio):
     fft_sig = np.absolute(np.fft.fft(audio))
@@ -167,8 +183,7 @@ def spectral_centroid_extr(audio, stat_measure, type):
 
 
 def spectral_bandwidth(audio):
-    return \
-    librosa.feature.spectral_bandwidth(y=audio[10:-10], sr=SAMPLING_RATE, n_fft=FRAME_SIZE, hop_length=HOP_LENGTH)[0]
+    return librosa.feature.spectral_bandwidth(y=audio[10:-10], sr=SAMPLING_RATE, n_fft=FRAME_SIZE, hop_length=HOP_LENGTH)[0]
 
 
 def spectral_bandwidth_extr(audio, stat_measure, type):
@@ -187,3 +202,39 @@ def autocorrelation_extr(audio, stat_measure, type):
     audio[f'AC_{type}_MV'] = audio.apply(lambda row: stat_measure(auto_cor(row.MV)), axis=1)
     audio[f'AC_{type}_PV'] = audio.apply(lambda row: stat_measure(auto_cor(row.PV)), axis=1)
     audio[f'AC_{type}_TV'] = audio.apply(lambda row: stat_measure(auto_cor(row.TV)), axis=1)
+
+def mfccs(audio, n_mfcc):
+    mfccs = librosa.feature.mfcc(y=audio, n_mfcc=n_mfcc, sr=SAMPLING_RATE)
+    return np.mean(mfccs.T, axis=0)
+
+def mfccs_extr(audio, n_mfcc=13):
+    for index, row in audio.iterrows():
+
+        AV_mfcc_list = mfccs(row.AV, n_mfcc).tolist()
+        count = 0
+        for mfcc in AV_mfcc_list:
+            audio.loc[index, f'AV_mfcc_{count + 1}'] = mfcc
+            count += 1
+
+        MV_mfcc_list = mfccs(row.MV, n_mfcc).tolist()
+        count = 0
+        for mfcc in MV_mfcc_list:
+            audio.loc[index, f'MV_mfcc_{count + 1}'] = mfcc
+            count += 1
+
+        PV_mfcc_list = mfccs(row.PV, n_mfcc).tolist()
+        count = 0
+        for mfcc in PV_mfcc_list:
+            audio.loc[index, f'PV_mfcc_{count + 1}'] = mfcc
+            count += 1
+
+        TV_mfcc_list = mfccs(row.TV, n_mfcc).tolist()
+        count = 0
+        for mfcc in TV_mfcc_list:
+            audio.loc[index, f'TV_mfcc_{count + 1}'] = mfcc
+            count += 1
+
+
+
+
+
