@@ -5,6 +5,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+
 class DataLoaderML:
     def __init__(self):
         self.heart_audio_path = os.path.join(os.getcwd(),
@@ -52,13 +53,11 @@ class DataLoaderML:
 
             self.audios = self.audios.append(new_row, ignore_index=True)
 
-            if index % 9 == 0:
+            if index % 10 == 0:
                 print(f"{index} patient audios have been loaded")
 
-            if index == 9:
-            #if not fulldataset and index == 19:
-               break
+            if not fulldataset and index == 19:
+                break
 
     def get_audios(self, fullDataset=True):
         self.__create_dataset(fullDataset)
-
