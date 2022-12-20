@@ -56,7 +56,7 @@ class DataLoaderML:
             if index % 10 == 0:
                 print(f"{index} patient audios have been loaded")
 
-            if not fulldataset and index == 19:
+            if not fulldataset and index == 4:
                 break
 
     def get_audios(self, fullDataset=True):
