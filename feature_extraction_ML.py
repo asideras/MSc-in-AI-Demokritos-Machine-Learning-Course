@@ -144,7 +144,7 @@ def set_len_extr(audio, sec=8):
 """
 
 
-def set_len_extr(dataset, sec=8, augment=False):
+def set_len_extr(dataset, sec=8, augment=False, padding_type='constant'):
     sample2_AV = 0
     sample2_MV = 0
     sample2_PV = 0
@@ -172,7 +172,7 @@ def set_len_extr(dataset, sec=8, augment=False):
             if eligible_for_augmentation:
                 sample2_AV = second_half
         elif audio_length_AV < num_of_samples:
-            row.AV = np.pad(row.AV, (0, num_of_samples - audio_length_AV), 'constant')
+            row.AV = np.pad(row.AV, (0, num_of_samples - audio_length_AV), padding_type)
 
         if audio_length_MV > num_of_samples:
             first_half = row.MV[:num_of_samples]
@@ -181,7 +181,7 @@ def set_len_extr(dataset, sec=8, augment=False):
             if eligible_for_augmentation:
                 sample2_MV = second_half
         elif audio_length_MV < num_of_samples:
-            row.MV = np.pad(row.MV, (0, num_of_samples - audio_length_MV), 'constant')
+            row.MV = np.pad(row.MV, (0, num_of_samples - audio_length_MV), padding_type)
 
         if audio_length_PV > num_of_samples:
             first_half = row.PV[:num_of_samples]
@@ -190,7 +190,7 @@ def set_len_extr(dataset, sec=8, augment=False):
             if eligible_for_augmentation:
                 sample2_PV = second_half
         elif audio_length_PV < num_of_samples:
-            row.PV = np.pad(row.PV, (0, num_of_samples - audio_length_PV), 'constant')
+            row.PV = np.pad(row.PV, (0, num_of_samples - audio_length_PV), padding_type)
 
         if audio_length_TV > num_of_samples:
             first_half = row.TV[:num_of_samples]
@@ -199,7 +199,7 @@ def set_len_extr(dataset, sec=8, augment=False):
             if  eligible_for_augmentation:
                 sample2_TV = second_half
         elif audio_length_TV < num_of_samples:
-            row.TV = np.pad(row.TV, (0, num_of_samples - audio_length_TV), 'constant')
+            row.TV = np.pad(row.TV, (0, num_of_samples - audio_length_TV), padding_type)
 
         if eligible_for_augmentation:
             new_row = {'Patient_ID': row.Patient_ID,
