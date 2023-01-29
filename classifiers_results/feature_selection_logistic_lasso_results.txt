@@ -1,40 +1,40 @@
-logistic regression Precision: 0.48148148148148145
-logistic regression Recall: 0.6190476190476191
-logistic regression f1_score: 0.5416666666666666
-logistic regression Accuracy: 0.8070175438596491
+Logistic Regression Precision: 0.7894736842105263
+Logistic Regression Recall: 0.5769230769230769
+Logistic Regression f1_score: 0.6666666666666666
+Logistic Regression Accuracy: 0.868421052631579
 ---------------------------------------------------------------------------
-SVM Precision: 0.7333333333333333
-SVM Recall: 0.5238095238095238
-SVM f1_score: 0.611111111111111
-SVM Accuracy: 0.8771929824561403
+SVM Precision: 0.75
+SVM Recall: 0.5769230769230769
+SVM f1_score: 0.6521739130434783
+SVM Accuracy: 0.8596491228070176
 ---------------------------------------------------------------------------
-Naive Bayes Precision: 0.4375
-Naive Bayes Recall: 0.3333333333333333
-Naive Bayes f1_score: 0.37837837837837834
-Naive Bayes Accuracy: 0.7982456140350878
+Naive Bayes Precision: 0.625
+Naive Bayes Recall: 0.38461538461538464
+Naive Bayes f1_score: 0.4761904761904762
+Naive Bayes Accuracy: 0.8070175438596491
 ---------------------------------------------------------------------------
-KNN Precision: 0.22580645161290322
-KNN Recall: 0.3333333333333333
-KNN f1_score: 0.2692307692307692
-KNN Accuracy: 0.6666666666666666
+KNN Precision: 0.6086956521739131
+KNN Recall: 0.5384615384615384
+KNN f1_score: 0.5714285714285715
+KNN Accuracy: 0.8157894736842105
 ---------------------------------------------------------------------------
-Decision Tree Precision: 0.2619047619047619
-Decision Tree Recall: 0.5238095238095238
-Decision Tree f1_score: 0.3492063492063492
-Decision Tree Accuracy: 0.6403508771929824
+Decision Tree Precision: 0.3333333333333333
+Decision Tree Recall: 0.2692307692307692
+Decision Tree f1_score: 0.2978723404255319
+Decision Tree Accuracy: 0.7105263157894737
 ---------------------------------------------------------------------------
-LDA Precision: 0.47619047619047616
-LDA Recall: 0.47619047619047616
-LDA f1_score: 0.47619047619047616
+LDA Precision: 0.5769230769230769
+LDA Recall: 0.5769230769230769
+LDA f1_score: 0.5769230769230769
 LDA Accuracy: 0.8070175438596491
 ---------------------------------------------------------------------------
-QDA Precision: 0.44
-QDA Recall: 0.5238095238095238
-QDA f1_score: 0.4782608695652174
-QDA Accuracy: 0.7894736842105263
+QDA Precision: 0.52
+QDA Recall: 0.5
+QDA f1_score: 0.5098039215686274
+QDA Accuracy: 0.7807017543859649
 ---------------------------------------------------------------------------
-ADABOOST Precision: 0.37037037037037035
-ADABOOST Recall: 0.47619047619047616
-ADABOOST f1_score: 0.4166666666666667
-ADABOOST Accuracy: 0.7543859649122807
+ADABOOST Precision: 0.6842105263157895
+ADABOOST Recall: 0.5
+ADABOOST f1_score: 0.5777777777777778
+ADABOOST Accuracy: 0.8333333333333334
 ---------------------------------------------------------------------------
