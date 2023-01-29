@@ -11,7 +11,6 @@ COUNT_PADDED = 0
 
 def compute_zero_crossing_rate(audio):
     zcr = librosa.feature.zero_crossing_rate(audio, frame_length=FRAME_SIZE, hop_length=HOP_LENGTH)[0]
-    # return np.array([np.mean(chunk) for chunk in np.split(zcr, NUM_OF_CHUNKS)])
     return np.sum(zcr)
 
 
@@ -120,35 +119,17 @@ def total_energy_extr(audio):
     audio[f'total_energy_TV'] = audio.apply(lambda row: total_energy(row.TV), axis=1)
 
 
-"""
-def set_len(audio, sec):
-    global COUNT_PADDED
-    num_of_samples = sec * SAMPLING_RATE
-    audio_length = audio.shape[0]
-    if audio_length > num_of_samples:
-        audio = audio[:num_of_samples]
-    elif audio_length < num_of_samples:
-        audio = np.pad(audio, (0, num_of_samples - audio_length), 'constant')
-        COUNT_PADDED += 1
+def set_len_extr(dataset, sec=5, augment=False, padding_type='constant'):
 
-    return audio
-
-
-def set_len_extr(audio, sec=8):
-    audio['AV'] = audio.apply(lambda row: set_len(row.AV, sec), axis=1)
-    audio['MV'] = audio.apply(lambda row: set_len(row.MV, sec), axis=1)
-    audio['PV'] = audio.apply(lambda row: set_len(row.PV, sec), axis=1)
-    audio['TV'] = audio.apply(lambda row: set_len(row.TV, sec), axis=1)
-    print(f'{COUNT_PADDED} audios have been padded')
-    return audio
-"""
-
-
-def set_len_extr(dataset, sec=8, augment=False, padding_type='constant'):
     sample2_AV = 0
     sample2_MV = 0
     sample2_PV = 0
     sample2_TV = 0
+
+    sample3_AV = 0
+    sample3_MV = 0
+    sample3_PV = 0
+    sample3_TV = 0
 
     num_of_samples = sec * SAMPLING_RATE
     new_samples = []
@@ -158,58 +139,77 @@ def set_len_extr(dataset, sec=8, augment=False, padding_type='constant'):
         audio_length_PV = row.AV.shape[0]
         audio_length_TV = row.AV.shape[0]
 
-        eligible_for_augmentation = (audio_length_AV > 2 * num_of_samples) and \
-                                    (audio_length_MV > 2 * num_of_samples) and \
-                                    (audio_length_PV > 2 * num_of_samples) and \
-                                    (audio_length_TV > 2 * num_of_samples) and \
+        eligible_for_augmentation = (audio_length_AV > 3 * num_of_samples) and \
+                                    (audio_length_MV > 3 * num_of_samples) and \
+                                    (audio_length_PV > 3 * num_of_samples) and \
+                                    (audio_length_TV > 3 * num_of_samples) and \
                                     (row.MURMUR == 'Present') and \
                                     augment
 
         if audio_length_AV > num_of_samples:
             first_half = row.AV[:num_of_samples]
-            second_half = row.AV[num_of_samples: 2 * num_of_samples]
-            row.AV = first_half
             if eligible_for_augmentation:
+                second_half = row.AV[num_of_samples: 2 * num_of_samples]
+                third_half = row.AV[2*num_of_samples: 3*num_of_samples]
                 sample2_AV = second_half
+                sample3_AV = third_half
+            row.AV = first_half
         elif audio_length_AV < num_of_samples:
             row.AV = np.pad(row.AV, (0, num_of_samples - audio_length_AV), padding_type)
 
         if audio_length_MV > num_of_samples:
             first_half = row.MV[:num_of_samples]
-            second_half = row.MV[num_of_samples: 2 * num_of_samples]
-            row.MV = first_half
             if eligible_for_augmentation:
+                second_half = row.MV[num_of_samples: 2 * num_of_samples]
+                third_half = row.MV[2 * num_of_samples: 3 * num_of_samples]
                 sample2_MV = second_half
+                sample3_MV = third_half
+            row.MV = first_half
         elif audio_length_MV < num_of_samples:
             row.MV = np.pad(row.MV, (0, num_of_samples - audio_length_MV), padding_type)
 
         if audio_length_PV > num_of_samples:
             first_half = row.PV[:num_of_samples]
-            second_half = row.PV[num_of_samples: 2 * num_of_samples]
-            row.PV = first_half
             if eligible_for_augmentation:
+                second_half = row.PV[num_of_samples: 2 * num_of_samples]
+                third_half = row.PV[2 * num_of_samples: 3 * num_of_samples]
                 sample2_PV = second_half
+                sample3_PV = third_half
+            row.PV = first_half
         elif audio_length_PV < num_of_samples:
             row.PV = np.pad(row.PV, (0, num_of_samples - audio_length_PV), padding_type)
 
         if audio_length_TV > num_of_samples:
             first_half = row.TV[:num_of_samples]
-            second_half = row.TV[num_of_samples: 2 * num_of_samples]
-            row.TV = first_half
             if  eligible_for_augmentation:
+                second_half = row.TV[num_of_samples: 2 * num_of_samples]
+                third_half = row.TV[2 * num_of_samples: 3 * num_of_samples]
                 sample2_TV = second_half
+                sample3_TV = third_half
+            row.TV = first_half
         elif audio_length_TV < num_of_samples:
             row.TV = np.pad(row.TV, (0, num_of_samples - audio_length_TV), padding_type)
 
         if eligible_for_augmentation:
-            new_row = {'Patient_ID': row.Patient_ID,
+            new_row1 = {'Patient_ID': row.Patient_ID,
                        'AV': sample2_AV,
                        'MV': sample2_MV,
                        'PV': sample2_PV,
                        'TV': sample2_TV,
                        'MURMUR': row.MURMUR}
 
-            new_samples.append(new_row)
+            new_samples.append(new_row1)
+
+            new_row2 = {'Patient_ID': row.Patient_ID,
+                        'AV': sample3_AV,
+                        'MV': sample3_MV,
+                        'PV': sample3_PV,
+                        'TV': sample3_TV,
+                        'MURMUR': row.MURMUR}
+
+            new_samples.append(new_row2)
+
+    print(f'Number of patient augmented {len(new_samples)/2} | new samples: {len(new_samples)}')
 
     for new_sample in new_samples:
         dataset = dataset.append(new_sample, ignore_index=True)
@@ -218,7 +218,7 @@ def set_len_extr(dataset, sec=8, augment=False, padding_type='constant'):
 
 
 def split_augmented_samples(data, train_percentage=.6, validation_percentage=.3, test_percentage=.1,
-                            duplicate_factor=2):
+                            duplicate_factor=3):
     duplicates = data.sort_values(by=['Patient_ID'])
     num_of_diff_samples = duplicates.shape[0] / duplicate_factor
 
@@ -243,6 +243,7 @@ def split_augmented_samples(data, train_percentage=.6, validation_percentage=.3,
     while vals_added % duplicate_factor != 0:
         vals_added -= 1
         modified += 1
+
 
     trains_added += modified
 

@@ -9,8 +9,8 @@ warnings.filterwarnings('ignore')
 class DataLoaderML:
     def __init__(self):
         self.heart_audio_path = os.path.join(os.getcwd(),
-                                             r"the-circor-digiscope-phonocardiogram-dataset-1.0.3\training_data")
-        self.annotations_path = os.path.join(os.getcwd(), r"the-circor-digiscope-phonocardiogram-dataset-1.0.3")
+                                             r"../the-circor-digiscope-phonocardiogram-dataset-1.0.3/training_data")
+        self.annotations_path = os.path.join(os.getcwd(), r"../the-circor-digiscope-phonocardiogram-dataset-1.0.3")
         self.annotations = pd.read_csv(os.path.join(self.annotations_path, "training_data.csv"))[
             ['Patient ID', 'Murmur']]
         self.audios = pd.DataFrame(columns=['Patient_ID', 'AV', 'MV', 'PV', 'TV', 'MURMUR'])
