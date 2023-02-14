@@ -51,6 +51,8 @@ with the given order.
     
 However, every notebook **can also be executed separately**.
 
+Otherwise, you could just run the demo **demo_murmur.py** (check *requirements.txt*), where you can manually select .wav audios for the four regions (AV,MV,PV,TV) from the folder [training_data]  and test our final model.
+
 
 
 
@@ -71,6 +73,8 @@ However, every notebook **can also be executed separately**.
 [requirements.txt]:   
 <https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/requirements.txt>
 [Presentation.pdf]: 
-https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/Presentation.pdf
+<https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/Presentation.pdf>
 [Report.pdf]: 
-https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/Report.pdf
+<https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/Report.pdf>
+[training_data]: 
+<https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/tree/master/the-circor-digiscope-phonocardiogram-dataset-1.0.3/training_data>
