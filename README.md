@@ -9,9 +9,11 @@
 
 
 ## Contents of this repository: 
-- [the-circor-digiscope-phonocardiogram-dataset-1.0.3] - The dataset
-- [The_CirCor_DigiScope_Dataset.pdf] - The dataset's paper
-- [requirements.txt] - Requirements
+- [Report.pdf] - The report of our project.
+- [Presentation.pdf] - The presentation of our project.
+- [the-circor-digiscope-phonocardiogram-dataset-1.0.3] - The dataset.
+- [The_CirCor_DigiScope_Dataset.pdf] - The dataset's paper.
+- [requirements.txt] - Requirements.
 - [notebooks] - Folder that includes: 
 
     The Jupyter Notebooks,
@@ -68,3 +70,7 @@ However, every notebook **can also be executed separately**.
 <https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/tree/master/classifiers_results>
 [requirements.txt]:   
 <https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/requirements.txt>
+[Presentation.pdf]: 
+https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/Presentation.pdf
+[Report.pdf]: 
+https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/Report.pdf
