@@ -11,6 +11,7 @@
 ## Contents of this repository: 
 - [the-circor-digiscope-phonocardiogram-dataset-1.0.3] - The dataset
 - [The_CirCor_DigiScope_Dataset.pdf] - The dataset's paper
+- [requirements.txt] - Requirements
 - [notebooks] - Folder that includes: 
 
     The Jupyter Notebooks,
@@ -22,9 +23,15 @@
     * **data_loader_ML.py**, that is used from *Feature_Extraction_&_Demonstration.ipynb* to load the dataset.
     * **feature_extraction_ML.py**, that is used from *Feature_Extraction_&_Demonstration.ipynb* to extract the audio features.
 
-    The extracted dataset from *Feature_Extraction_&_Demonstration.ipynb*:
+    The dataset containing the features extracted from *Feature_Extraction_&_Demonstration.ipynb*:
     * **murmor_dataset.csv**
 
+    A script **demo_murmur.py** that runs a server on localhost for demonstration purposes. Run ``demo_murmur.py`` without any arguments after installing the packages in *requirements.txt*.
+    
+    The following two pickle files that store the *selected model* and the *standard scaler* respectively. Both files are created from *murmur_classification.ipynb*.
+    * final_model.pkl
+    * scaler.pkl
+    
 
 - [train_val_test_datasets] - Folder that includes the the *train*, *validation*, *test* sets are stored from **Feature_Selection.ipynb**.
 
@@ -40,7 +47,7 @@ In order to run the whole process you should execute the notebooks,
 
 with the given order. 
     
-However, every notebook **can also be executed separately**
+However, every notebook **can also be executed separately**.
 
 
 
@@ -59,4 +66,5 @@ However, every notebook **can also be executed separately**
 <https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/tree/master/important_features>
 [classifiers_results]:
 <https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/tree/master/classifiers_results>
-   
+[requirements.txt]:   
+<https://github.com/asideras/MSc-in-AI-Demokritos-Machine-Learning-Course/blob/master/requirements.txt>
